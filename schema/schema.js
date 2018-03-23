@@ -1,9 +1,20 @@
+
+//lodash帮助我们进行数据遍历和迭代
+const _ = require('lodash');
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
   GraphQLString,
-  GraphQLInt
+  GraphQLInt,
+  //graphqlschema接受rootquery返回schema实例
+  GraphQLSchema
 } = graphql;
+
+const users = [{
+  id:'23', firstName: 'bill', age:20
+},{
+  id:'47', firstName: 'Zhen', age: 24
+}];
 
 
 //这个对象规定了它的存储属性
@@ -28,8 +39,12 @@ const RootQuery = new GraphQLObjectType({
       args: {id: {type: GraphQLString}},
       //最重要的函数
       resolve(parentValue, args){
-        
+        return _.find(users, {id: args.id});
       }
     }
   }
-})
+});
+
+module.exports = new GraphQLSchema({
+  query: RootQuery
+});
