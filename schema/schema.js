@@ -1,6 +1,7 @@
 
 //lodash帮助我们进行数据遍历和迭代
-const _ = require('lodash');
+//const _ = require('lodash');
+const axios = require('axios');
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
@@ -39,7 +40,8 @@ const RootQuery = new GraphQLObjectType({
       args: {id: {type: GraphQLString}},
       //最重要的函数
       resolve(parentValue, args){
-        return _.find(users, {id: args.id});
+          //异步,axios会默认把对象嵌在data对象下面，所以只返回resp.data
+          return axios.get(`http://localhost:3000/users/${args.id}`).then(resp => resp.data);
       }
     }
   }
