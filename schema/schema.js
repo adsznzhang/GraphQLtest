@@ -16,7 +16,14 @@ const users = [{
 },{
   id:'47', firstName: 'Zhen', age: 24
 }];
-
+const CompanyType = new GraphQLObjectType({
+    name: 'Company',
+    fields: {
+        id:{type: GraphQLString},
+        name: {type: GraphQLString},
+        description: {type: GraphQLString}
+    }
+});
 
 //这个对象规定了它的存储属性
 const UserType = new GraphQLObjectType({
@@ -27,7 +34,8 @@ const UserType = new GraphQLObjectType({
       //type 定义了属性类型
         id: {type: GraphQLString},
         firstName: {type: GraphQLString},
-        age:  {type: GraphQLInt}
+        age:  {type: GraphQLInt},
+        company: {type: CompanyType}
     }
 });
 
